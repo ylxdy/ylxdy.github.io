@@ -1,122 +1,146 @@
-# [Minimal Mistakes Jekyll Theme](https://mmistakes.github.io/minimal-mistakes/)
 
-[![GitHub release](https://img.shields.io/github/release/mmistakes/minimal-mistakes.svg)](https://github.com/mmistakes/minimal-mistakes/releases) [![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/mmistakes/minimal-mistakes/master/LICENSE)
+The BananaBread Engine
+======================
 
-Minimal Mistakes is a flexible two-column Jekyll theme. Perfect for hosting your personal site, blog, or portfolio on GitHub or self-hosting on your own server. As the name implies --- styling is purposely minimalistic to be enhanced and customized by you :smile:.
+A port of the Cube 2/Sauerbraten 3D game engine/first person shooter to the
+web, compiling C++ and OpenGL to JavaScript and WebGL using Emscripten.
 
-See what's new in the [CHANGELOG](CHANGELOG.md).
+See the **[FAQ](https://github.com/kripken/BananaBread/wiki/FAQ)**.
 
-[![Minimal Mistakes live preview][2]][1]
 
-[1]: https://mmistakes.github.io/minimal-mistakes/
-[2]: images/mm-browser-mockups.png (live preview)
+Demos
+-----
 
-The theme includes responsive layouts (`single`, `archive`, and `splash` pages) that look great on mobile and desktop browsers.
+**[A live demo is available](https://kripken.github.io/BananaBread/cube2/index.html)**.
 
-![layout examples](images/mm-layout-examples.png)
 
-## [Installation and Setup](https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/) / [Preview the Theme](https://mmistakes.github.io/minimal-mistakes/)
+Overview
+--------
 
-### Notable Features
+Cube 2 is a compact and efficient 3D game engine. By compiling it
+to JavaScript and WebGL you can run a complete first person
+shooter in your web browser, using only standard web APIs and
+without any plugins.
 
-- Compatible with Jekyll 3.x and GitHub Pages
-- Support for Jekyll's built-in Sass/SCSS preprocessor
-- Several layout options (single, archive, splash pages)
-- SEO optimized with support for [Twitter Cards](https://dev.twitter.com/cards/overview) and [Open Graph](http://ogp.me/) data
-- Optional header images, sidebars, table of contents, galleries, related posts, breadcrumb links, and more.
-- Optional comments ([Disqus](https://disqus.com/), [Facebook](https://developers.facebook.com/docs/plugins/comments), Google+, [Discourse](https://www.discourse.org/), static-based via [Staticman](https://staticman.net/), and custom).
-- Optional analytics ([Google Analytics](https://www.google.com/analytics/) and custom).
-- UI localized text: English (default), Spanish, French, and Turkish.
+Features:
 
-#### Demo Pages
+ * A multitude of visual effects including water reflection/refraction,
+   parallax mapping, glare, particle effects,
+   lightmaps, skeletal animation (on gpu), etc. etc.
+ * Streamlined and quick physics system
+  * Ragdoll physics
+ * Bot AI with adjustable skill level
+ * Integrated in-game editor
+ * Fast performance both running on the web or natively
+ * zlib license
 
-| Name                                        | Description                                           |
-| ------------------------------------------- | ----------------------------------------------------- |
-| [Post with Header Image][header-image-post] | A post with a large header image. |
-| [HTML Tags and Formatting Post][html-tags-post] | A variety of common markup showing how the theme styles them. |
-| [Syntax Highlighting Post][syntax-post] | Post displaying highlighted code. |
-| [Post with a Gallery][gallery-post] | A post showing several images wrapped in `<figure>` elements. |
-| [Sample Collection Page][sample-collection] | Single page from a collection. |
-| [Categories Archive][categories-archive] | Posts grouped by category. |
-| [Tags Archive][tags-archive] | Posts grouped by tags. |
+The original engine also has a lot of other features not yet
+enabled (but will be):
 
-For even more demo pages check the [posts archive][year-archive].
+ * Multiplayer
+  * Multiplayer editing
+ * Shadowmapping
 
-[header-image-post]: https://mmistakes.github.io/minimal-mistakes/layout-header-image-text-readability/
-[gallery-post]: https://mmistakes.github.io/minimal-mistakes/post%20formats/post-gallery/
-[html-tags-post]: https://mmistakes.github.io/minimal-mistakes/markup/markup-html-tags-and-formatting/
-[syntax-post]: https://mmistakes.github.io/minimal-mistakes/markup-syntax-highlighting/
-[sample-collection]: https://mmistakes.github.io/minimal-mistakes/recipes/chocolate-chip-cookies/
-[categories-archive]: https://mmistakes.github.io/minimal-mistakes/categories/
-[tags-archive]: https://mmistakes.github.io/minimal-mistakes/tags/
-[year-archive]: https://mmistakes.github.io/minimal-mistakes/year-archive/
 
----
+Building
+--------
 
-## Contributing
+Get emscripten and its dependencies,
 
-Having trouble working with the theme? Found a typo in the documentation? Interested in adding a feature or [fixing a bug](https://github.com/mmistakes/minimal-mistakes/issues)? Then by all means [submit an issue](https://github.com/mmistakes/minimal-mistakes/issues/new) or [pull request](https://help.github.com/articles/using-pull-requests/). If this is your first pull request, it may be helpful to read up on the [GitHub Flow](https://guides.github.com/introduction/flow/) first.
+  http://emscripten.org
 
-Minimal Mistakes has been designed as a base for you to customize and fit your site's unique needs. Please keep this in mind when requesting features and/or submitting pull requests. If it's not something that most people will use, I probably won't consider it. When in doubt ask. 
+It's recommended to go through the emscripten tutorial to see that it is set
+up properly.
 
-This goes for author sidebar links and "share button" additions -- I have no intention of merging in every possibly option, the essentials are there to get you started :smile:.
+You will also need crunch if you want smaller downloads,
 
-### Pull Requests
+  https://github.com/richgel999/crunch
 
-To help me out try to avoid creating pull requests on `master` and instead branch off of `develop`. It's much easier for me to test, merge, and roll them into new releases this way.
+Build in crnlib using the Makefile. You can disable
+crunch if you don't want it, remove all mentions of crunch in
+`cube2/src/web/Makefile`.
 
----
+Then do `make` in `cube2/src/web` for a web build. You can also do `make` in
+`cube2/src/native` for a native linux build.
 
-## Credits
+If you have any problems building, feel free to file an issue here or to
+find us on emscripten IRC (see [emscripten site](http://emscripten.org)).
 
-### Creator
+See needed.txt for some possibly useful scripts to package the output.
 
-**Michael Rose**
 
-- <https://mademistakes.com>
-- <https://twitter.com/mmistakes>
-- <https://github.com/mmistakes>
+Running
+-------
 
-### Icons + Demo Images:
+0. Run
+     python -m SimpleHTTPServer 8888
+   in cube2/
 
-- [The Noun Project](https://thenounproject.com) -- Garrett Knoll, Arthur Shlain, and [tracy tam](https://thenounproject.com/tracytam)
-- [Font Awesome](http://fortawesome.github.io/Font-Awesome/)
-- [Unsplash](https://unsplash.com/)
+1. Load localhost:8888 in your browser
 
-### Other:
 
-- [Jekyll](http://jekyllrb.com/)
-- [jQuery](http://jquery.com/)
-- [Susy](http://susy.oddbird.net/)
-- [Breakpoint](http://breakpoint-sass.com/)
-- [Magnific Popup](http://dimsemenov.com/plugins/magnific-popup/)
-- [FitVids.JS](http://fitvidsjs.com/)
-- Greedy Navigation - [lukejacksonn](http://codepen.io/lukejacksonn/pen/PwmwWV)
-- [jQuery Smooth Scroll](https://github.com/kswedberg/jquery-smooth-scroll)
-- [Stickyfill](https://github.com/wilddeer/stickyfill)
+Modding
+-------
 
----
+To use maps of your own or make other kinds of changes or additions to the
+artwork, see the
+**[Modding](https://github.com/kripken/BananaBread/wiki/Modding)**
+page.
 
-## License
 
-The MIT License (MIT)
+Debugging
+---------
 
-Copyright (c) 2016 Michael Rose
+If you append `,debug` to the URL of one of the levels, it will use
+`bb.debug.js` instead of `bb.js`. The debug build has not been run
+through closure compiler and is much more readable for stack traces
+and profiling and so forth.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+License
+-------
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+### Code
+
+Code is zlib licensed (just like Sauerbraten):
+
+Copyright (C) 2001-2012 Sauerbraten authors (see cube2/src/readme_source.txt)
+and BananaBread authors (see below)
+
+This software is provided 'as-is', without any express or implied
+warranty.  In no event will the authors be held liable for any damages
+arising from the use of this software.
+
+Permission is granted to anyone to use this software for any purpose,
+including commercial applications, and to alter it and redistribute it
+freely, subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must not
+   claim that you wrote the original software. If you use this software
+   in a product, an acknowledgment in the product documentation would be
+   appreciated but is not required.
+2. Altered source versions must be plainly marked as such, and must not be
+   misrepresented as being the original software.
+3. This notice may not be removed or altered from any source distribution.
+
+BananaBread authors:
+
+ * Alon Zakai
+ * Gregor Koch
+ * Bobby Richter
+
+### Art
+
+All art content in this project (levels/maps, character model, etc.
+etc.) is either CC-BY or CC-BY-SA, which means you can use it in
+your projects, including commercial ones. If a directory does not
+contain a specific license file, then it is new artwork created for
+this project, which has the CC-BY license,
+
+https://creativecommons.org/licenses/by/3.0/
+
+and copyright is held by the Mozilla Foundation.
+
+Previously-existing content can also be CC-BY-SA, see license files in
+specific directories.
+
